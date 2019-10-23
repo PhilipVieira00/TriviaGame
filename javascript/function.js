@@ -46,7 +46,7 @@ var viewingAns = 0;
 var correctAnswers = 0;
 var quizOver = false;
 var iSelectedAnswer = [];
-var c=180;
+var time=180;
 var t;
 $(document).ready(function () 
 {
@@ -147,30 +147,29 @@ $(this).find(".preButton").on("click", function ()
 
 function timedCount()
 {
-  if(c == 185) 
+  if(time == 185) 
   { 
     return false; 
   }
   
-  var hours = parseInt( c / 3600 ) % 24;
-  var minutes = parseInt( c / 60 ) % 60;
-  var seconds = c % 60;
-  var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);            
+  var minutes = parseInt( time / 60 ) % 60;
+  var seconds = time % 60;
+  var result = (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);            
   $('#timer').html(result);
   
-  if(c == 0 )
+  if(time == 0 )
   {
         displayScore();
         $('#iTimeShow').html('Quiz Time Completed!');
         $('#timer').html("You scored: " + correctAnswers + " out of: " + questions.length);
-        c=185;
+        time=185;
         $(document).find(".preButton").text("View Answer");
         $(document).find(".nextButton").text("Play Again?");
         quizOver = true;
         return false;
         
   }
-  c = c - 1;
+  time = time - 1;
   t = setTimeout(function()
   {
     timedCount()
@@ -182,7 +181,7 @@ function timedCount()
 function displayCurrentQuestion() 
 {
 
-if(c == 185) { c = 180; timedCount(); }
+if(time == 185) { time = 180; timedCount(); }
   //console.log("In display current Question");
   var question = questions[currentQuestion].question;
   var questionClass = $(document).find(".quizContainer > .question");
